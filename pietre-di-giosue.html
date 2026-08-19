@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Le pietre di Giosuè. Quattro segni nel tuo cammino — Velum Dei Arcana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2a1b3d; --ink-2:#341f4a; --panel:#3d2650;
+    --parchment:#f0e9de; --parchment-dim:#c9b8d6;
+    --gold:#c9a84c; --gold-bright:#e8c874;
+    --wine:#5a3f7d; --hairline:rgba(232,200,116,0.30);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  html{background:var(--ink); min-height:100%;}
+  body{background:var(--ink); color:var(--parchment); font-family:'EB Garamond', serif; font-size:18px; line-height:1.7; min-height:100vh; position:relative;}
+  ::selection{background:var(--wine); color:var(--parchment);}
+  body::before{
+    content:""; position:fixed; inset:0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(232,200,116,0.12), transparent 60%),
+      radial-gradient(ellipse 80% 50% at 50% 100%, rgba(90,63,125,0.35), transparent 60%);
+    pointer-events:none; z-index:0;
+  }
+  .wrap{max-width:680px; margin:0 auto; padding:0 28px; position:relative; z-index:1;}
+  h1,h2,h3{font-family:'Cormorant Garamond', serif; font-weight:500; letter-spacing:0.01em;}
+  .eyebrow{font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:400; letter-spacing:0.14em; text-transform:uppercase; font-size:13px; color:var(--gold-bright); opacity:0.85;}
+  a{color:var(--gold-bright);}
+
+  nav.topnav{
+    position:sticky; top:0; z-index:30;
+    background:rgba(26,16,36,0.85); backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--hairline);
+    padding:18px 28px;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+  }
+  nav.topnav .brand{font-family:'Cormorant Garamond', serif; font-size:19px; letter-spacing:0.03em; color:var(--parchment); text-decoration:none;}
+  nav.topnav .links{display:flex; gap:26px;}
+  nav.topnav .links a{font-family:'Cormorant Garamond', serif; font-size:16px; letter-spacing:0.03em; color:var(--parchment-dim); text-decoration:none; transition:color .25s ease;}
+  nav.topnav .links a:hover, nav.topnav .links a.active{color:var(--gold-bright);}
+  .nav-oracolo{
+    font-family:'Cormorant Garamond', serif; font-style:italic; font-size:15px; letter-spacing:0.03em;
+    color:#1a1024; text-decoration:none; white-space:nowrap;
+    background:linear-gradient(135deg, #e6c877, #c9a84c);
+    padding:8px 20px; border-radius:20px; transition:opacity .25s ease, transform .25s ease;
+  }
+  .nav-oracolo:hover{opacity:0.85;}
+
+  .back-link{display:block; padding:36px 0 0; font-family:'Cormorant Garamond', serif; font-style:italic; font-size:15px; color:var(--parchment-dim); text-decoration:none;}
+  .back-link:hover{color:var(--gold-bright);}
+
+  .article-head{padding:24px 0 10px;}
+  .article-head h1{font-size:clamp(32px,6vw,44px); line-height:1.15; color:var(--parchment); margin:14px 0 10px;}
+  .article-head .subtitle{font-family:'Cormorant Garamond', serif; font-style:italic; font-size:20px; color:var(--gold-bright); margin-bottom:22px;}
+  .article-meta{font-size:14px; color:var(--parchment-dim); opacity:0.75; margin-bottom:36px;}
+
+  .hero-img{width:100%; max-height:440px; object-fit:cover; border-radius:2px; margin-bottom:44px; display:block; border:1px solid var(--hairline);}
+  .mid-img{width:100%; max-height:380px; object-fit:cover; border-radius:2px; margin:44px 0; display:block; border:1px solid var(--hairline);}
+
+  article{padding-bottom:20px;}
+  article p{color:var(--parchment-dim); margin-bottom:20px; font-size:18px;}
+  article p.lede{font-style:italic; color:var(--parchment); font-size:19px;}
+  article h3{font-size:23px; color:var(--gold-bright); margin:52px 0 20px; font-weight:500;}
+  article h3:first-of-type{margin-top:44px;}
+  article p em{color:var(--parchment); font-style:italic;}
+  article blockquote{
+    border-left:2px solid var(--gold); padding:4px 0 4px 22px; margin:28px 0;
+    font-family:'Cormorant Garamond', serif; font-style:italic; font-size:20px; color:var(--gold-bright);
+  }
+
+  .signature-line{font-style:italic; color:var(--gold-bright); font-family:'Cormorant Garamond', serif; font-size:19px; text-align:center; padding:60px 0 90px;}
+
+  .share-nav{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+    border-top:1px solid var(--hairline); padding-top:30px; margin-top:20px;
+  }
+  .share-nav a{font-family:'Cormorant Garamond', serif; font-style:italic; font-size:15px; text-decoration:none; color:var(--gold-bright);}
+  .share-nav a:hover{opacity:0.8;}
+
+  footer{padding:40px 0 80px; text-align:center;}
+  footer .contacts{font-size:14px; color:var(--parchment-dim);}
+  footer .contacts a{margin:0 10px;}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html" class="brand">Velum Dei Arcana</a>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="chi-sono.html">Chi sono</a>
+    <a href="articoli.html" class="active">Articoli</a>
+    <a href="tariffe.html">Tariffe</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contatti.html">Contatti</a>
+  </div>
+  <a href="oracolo.html" class="nav-oracolo">✦ Oracolo</a>
+</nav>
+
+<div class="wrap">
+  <a href="articoli.html" class="back-link">← Torna agli articoli</a>
+
+  <div class="article-head">
+    <p class="eyebrow">Bibbia e metagenealogia</p>
+    <h1>Le pietre di Giosuè</h1>
+    <p class="subtitle">Quattro segni nel tuo cammino</p>
+    <p class="article-meta">15 agosto 2026</p>
+  </div>
+
+  <img src="images/articoli/pietre-giosue-menhir.webp" alt="Grande pietra eretta sotto una quercia al crepuscolo, con una lanterna accesa ai suoi piedi e le montagne sullo sfondo" class="hero-img">
+
+  <article>
+    <p class="lede">Le pietre sono solo oggetti fisici?</p>
+
+    <p>C'è un libro della Bibbia che sembra parlare solo di conquiste, confini, battaglie. Ma se lo attraversi con attenzione, noterai un oggetto che ritorna continuamente, silenzioso: la pietra.</p>
+    <p>Ogni volta che compare, in Giosuè, qualcosa di invisibile sta diventando visibile. Un ricordo, una colpa, un'attesa, un patto. E se le guardiamo bene, queste pietre antiche hanno molto da dire su quelle più recenti che portiamo dentro, quelle che nessuno vede, ma che portano in loro stesse dei messaggi.</p>
+    <p>Vorrei raccontartele una a una.</p>
+
+    <h3>Le pietre della memoria — Giosuè 4</h3>
+    <p>Il popolo sta per attraversare il Giordano. Non è un fiume qualunque, ed è il momento sbagliato: siamo nella stagione della piena, acque alte e impetuose. Eppure Dio incoraggia Giosuè: oggi comincerò a renderti grande davanti al popolo, che condurrai verso le promesse. Nel momento in cui i sacerdoti che portano l'arca mettono piede nell'acqua, il fiume si ferma, si raccoglie. Il popolo passa all'asciutto, segno che Dio li sta accompagnando, eco della liberazione dall'Egitto.</p>
+    <p>Gli eventi enormi, però, tendono a sbiadire in fretta, soprattutto per chi non li ha vissuti sulla propria pelle. Per questo, appena il popolo è passato, Giosuè comanda una cosa precisa: dodici uomini, uno per tribù, tornano nel letto del fiume e prendono una pietra ciascuno, dal punto esatto dove i sacerdoti erano rimasti fermi. Le portano a Ghilgal, le innalzano come monumento. E, dettaglio profondo, altre dodici pietre restano nel fiume stesso, sommerse, invisibili. Gli eventi importanti del nostro albero genealogico sono scritti nelle nostre profondità anche quando non li vediamo.</p>
+    <p>Il motivo non è celebrativo. È chiaro: <em>"Quando domani i vostri figli chiederanno: cosa significano queste pietre? Voi risponderete loro…"</em> Sulla pietra non c'è scritto nulla. È muta. Costringerà chi verrà dopo a fermarsi e chiedere: perché? E quando ti chiedi il perché di qualcosa che non è in superficie dentro di te, a rispondere sono antiche memorie.</p>
+    <p>Le pietre visibili a Ghilgal e quelle invisibili nel fiume sono due facce dello stesso passaggio, della stessa memoria: ciò che portiamo alla luce e raccontiamo e ciò che resta sepolto, non dimenticato, ma custodito in un luogo che solo chi ha attraversato quel fiume conosce.</p>
+    <p>Ci sono pietre di un passato che non ci appartiene, portate nell'anima, che attendono solo che qualcosa dentro di te domandi: cosa significano? Quale parte della tua storia hai innalzato e raccontato, e quale è rimasta sommersa, viva ma silenziosa, conservata nelle profondità del tuo spirito, che riverbera nell'anima senza che la mente riesca a ricondurla a qualcosa di preciso?</p>
+    <p>I riscontri si hanno anche all'esterno, in quel cumulo che resta sulla superficie ma il cui passaggio si è svolto nel letto del fiume.</p>
+
+    <h3>Il cumulo della valle — Giosuè 7</h3>
+    <p>Dopo la vittoria di Gerico, qualcosa si incrina. Il popolo attacca la piccola Ai, certo di una vittoria facile. Viene respinto, umiliato, alcuni muoiono in battaglia. Giosuè non capisce. Si getta a terra davanti all'arca, si strappa le vesti, chiede a Dio perché li abbia abbandonati.</p>
+    <p>La risposta è dura: qualcuno ha trattenuto per sé parte del bottino di Gerico, bottino dichiarato sacro, interdetto, destinato a Dio e a nient'altro. Nessuno doveva prenderlo per uso personale, perché il suo uso era riservato altrove. Tribù per tribù, famiglia per famiglia, si arriva a un uomo solo: Acan. Confessa di aver visto un mantello prezioso, argento, una barra d'oro, e di averli nascosti sotto terra, nella propria tenda.</p>
+    <p>Un gesto compiuto nell'ombra ha avuto conseguenze sulla vittoria di un intero popolo. Si pagano prezzi per tener nascoste le cose. Acan viene condotto nella valle, insieme a ciò che aveva sottratto, e su di lui si innalza un grande cumulo di pietre, visibile "fino ad oggi", dice il testo. Non è un segno che si dissolve col tempo. Resta.</p>
+    <p>Anche nel cuore delle famiglie esistono registri antichi. Qui la pietra non è memoria di un passaggio, come al Giordano, è il peso reso visibile di ciò che si voleva tenere invisibile. Ciò che nascondiamo non scompare perché nessuno lo vede: si accumula, prende forma, lentamente, in silenzio. E prima o poi arriva il momento, spesso una crisi, in cui dobbiamo fare i conti con quel cumulo.</p>
+    <p>Ci sono cose che portiamo nascoste, di cui sentiamo il peso anche se nessuno intorno le vede, frutto di qualcosa che non ci appartiene, ma che crediamo valga la pena trattenere, come fosse più prezioso della vita stessa. La valle di Acor, il cui nome significa turbamento, diventa il luogo dove la verità reclama la luce. Quanto costa, davvero, mentire a se stessi?</p>
+
+    <h3>La soglia sigillata — Giosuè 10</h3>
+    <p>Cinque re nemici, sconfitti in battaglia, si nascondono in una grotta a Makkeda. Giosuè prende una decisione che sembra crudele ma che leggo come lucidità strategica: rotolare grandi pietre contro l'apertura, porre delle guardie, continuare a combattere altrove. Prima si finisce ciò che va finito. Solo dopo si torna.</p>
+    <p>A battaglia conclusa, le pietre vengono rimosse, i cinque re affrontati, e la grotta richiusa, questa volta per sempre, come loro sepolcro. "Fino ad oggi", narra ancora il testo.</p>
+    <p>Qui la pietra non è memoria né peso: è soglia. Trattiene ciò che non è ancora il momento di affrontare, non per evitarlo per sempre, ma perché prima c'è altro da completare, altrove, con lucidità. Poi, quando è il momento, la porta si riapre.</p>
+    <p>C'è saggezza in questo gesto. Viviamo spesso nell'urgenza di risolvere tutto nell'istante in cui emerge. Ma non ogni porta va riaperta subito. Alcune vanno sigillate consapevolmente, per un tempo, non per negazione, ma per discernimento. Una porta chiusa con consapevolezza, in attesa del momento giusto, è cosa diversa da una porta murata per paura, di cui dimentichiamo che le mani a chiuderla erano le nostre.</p>
+    <p>Forse ci sono porte, nella tua vita, che tieni chiuse. Te lo sei mai chiesto: sono chiuse per paura di ciò che contengono, o perché non è ancora arrivato il momento? Non dimenticare: le mani che le hanno chiuse erano le tue.</p>
+
+    <h3>La pietra testimone — Giosuè 24</h3>
+    <p>Giosuè, ormai anziano, raduna il popolo a Sichem. Ripercorre insieme a loro l'intera storia — da Abramo fino a quel giorno — e chiede, consapevolmente, chi vogliono servire. La risposta è un rinnovo del patto: "Serviremo il Signore." Giosuè scrive quelle parole nel libro della legge. Poi prende una grande pietra, la erige sotto la quercia del santuario, e dice:</p>
+    <blockquote>"Questa pietra sarà testimone contro di noi, perché ha udito tutte le parole che il Signore ci ha dette."</blockquote>
+    <p>Non parla, questa pietra, è muta, come ogni pietra. Ma "ha udito". È testimone non per ciò che dice, ma per ciò a cui ha assistito: qualcosa di inanimato che, per essere stato presente nel momento in cui una parola è stata data, ne porta per sempre la responsabilità silenziosa.</p>
+    <p>C'è un dettaglio che amo: non è un patto imposto dall'alto, come all'inizio del cammino, quando il popolo seguiva quasi passivamente. Qui viene interpellato, gli si chiede di scegliere. Il patto a Sichem non è eredità automatica, è una scelta.</p>
+    <p>È il tuo cuore, oggi, a essere testimone delle promesse che ti sei fatta nel corso della vita. E quelle promesse, le hai rinnovate consapevolmente nel tempo, o le stai onorando per inerzia, perché "è quello che avevo detto una volta", senza più chiederti se corrispondono a chi sei ora?</p>
+
+    <h3>Le pietre che portiamo dentro</h3>
+    <p>Ti ho raccontato questa storia antica perché credo che dentro di noi esista lo stesso passaggio.</p>
+    <p>C'è un tipo di pietra che non abbiamo scelto: il passaggio dei nostri antenati che riverbera, instancabile, dentro di noi, un giudizio pronunciato da un padre o un nonno mai conosciuto, un ruolo assegnato prima ancora di nascere, una fedeltà invisibile verso una storia di famiglia che portiamo avanti senza sapere bene perché. La metagenealogia le chiama proprio così: fedeltà familiari invisibili. Sono le dodici pietre del Giordano, innalzate da mani che non erano le nostre, eppure le portiamo come fossero nostre, finché non scaviamo abbastanza a fondo da scoprirlo.</p>
+    <p>E poi c'è un secondo tipo di pietra, più insidioso perché lo crediamo interamente nostro: le parole che diciamo a noi stessi. "Non sono capace." "Sono sempre stata così." "Non merito." Dichiarazioni nate in un momento di dolore o rabbia che, col tempo, smettono di essere una frase detta in un giorno preciso e diventano identità.</p>
+    <p>Ma in realtà sono interdetti. Non sono nostri, non ci appartengono, sono cose da lasciare a Dio. La tua colpa è destinata a Lui, non i tuoi meriti, non la tua bellezza, ma la tua vergogna. Ciò che non ti appartiene, se lo trattieni, attira a te la morte. Sono fuochi estranei, altari eretti da noi stessi senza nemmeno accorgercene, nel momento esatto in cui li abbiamo pronunciati.</p>
+    <p>E qui il punto che vorrei lasciarti.</p>
+    <p>Le pietre restano dove sono state poste, "fino ad oggi", ripete il testo. Non si sciolgono nel tempo, non si dissolvono da sole. Restano, identiche, finché qualcuno non decide, consapevolmente, di rimuoverle.</p>
+    <p>Le pietre interiori funzionano allo stesso modo. Un condizionamento non svanisce perché sono passati dieci, vent'anni. Una dichiarazione fatta a sedici anni, in una stanza chiusa, in un momento di disperazione, non perde forza col tempo, continua a reggere l'altare su cui l'abbiamo posata, silenziosa, invisibile, finché non torniamo, come Giosuè con i suoi uomini, a chiederci: questa pietra, cosa significa? Chi l'ha posta? È ancora vera?</p>
+    <p>Non tutte le pietre vanno smantellate. Alcune meritano di restare: sono i patti autentici, le verità che ci hanno fondato, le promesse che, rinnovate consapevolmente, ci orientano ancora verso casa. Ma altre sono diventate cumuli che seppelliscono invece di custodire, soglie che crediamo murate per sempre solo perché abbiamo dimenticato che le mani a chiuderle erano le nostre.</p>
+    <p>Il discernimento, non l'automatismo, è ciò che distingue un altare sacro da una prigione.</p>
+    <p>E allora ti lascio con l'unica domanda da porti di fronte a ogni pietra che oggi riconosci dentro di te:</p>
+    <p><em>Questa pietra, l'ho eretta io con consapevolezza o mi sono semplicemente trovata a vivere accanto ad essa, credendola inamovibile?</em></p>
+    <p>Perché le pietre interiori, se non le smantelliamo, non si dissolvono col tempo. Restano. Fino ad oggi.</p>
+
+    <div class="share-nav">
+      <a href="articoli.html">← Torna agli articoli</a>
+      <a href="contatti.html">Scrivimi →</a>
+    </div>
+  </article>
+</div>
+
+<p class="signature-line wrap">Il velo che nasconde è lo stesso velo che rivela.</p>
+
+<footer>
+  <p class="contacts">
+    <a href="index.html">Home</a>·
+    <a href="chi-sono.html">Chi sono</a>·
+    <a href="articoli.html">Articoli</a>·
+    <a href="tariffe.html">Tariffe</a>·
+    <a href="faq.html">FAQ</a>·
+    <a href="contatti.html">Contatti</a>·
+    <a href="privacy.html">Privacy</a>·
+    <a href="termini.html">Termini e Condizioni</a>
+  </p>
+  <p class="copyright" style="font-size:12px; color:var(--parchment-dim); opacity:0.6; margin-top:18px;">© 2026 Velum Dei Arcana. Tutti i diritti riservati.</p>
+</footer>
+
+</body>
+</html>

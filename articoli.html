@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Articoli — Velum Dei Arcana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2a1b3d; --ink-2:#341f4a; --panel:#3d2650;
+    --parchment:#f0e9de; --parchment-dim:#c9b8d6;
+    --gold:#c9a84c; --gold-bright:#e8c874;
+    --wine:#5a3f7d; --hairline:rgba(232,200,116,0.30);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{background:var(--ink); min-height:100%;}
+  body{background:var(--ink); color:var(--parchment); font-family:'EB Garamond', serif; font-size:18px; line-height:1.7; min-height:100vh; position:relative;}
+  ::selection{background:var(--wine); color:var(--parchment);}
+  body::before{
+    content:""; position:fixed; inset:0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(232,200,116,0.12), transparent 60%),
+      radial-gradient(ellipse 80% 50% at 50% 100%, rgba(90,63,125,0.35), transparent 60%);
+    pointer-events:none; z-index:0;
+  }
+  .wrap{max-width:700px; margin:0 auto; padding:0 28px; position:relative; z-index:1;}
+  h1,h2,h3{font-family:'Cormorant Garamond', serif; font-weight:500; letter-spacing:0.01em;}
+  .eyebrow{font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:400; letter-spacing:0.14em; text-transform:uppercase; font-size:13px; color:var(--gold-bright); opacity:0.85;}
+  a{color:var(--gold-bright);}
+
+  nav.topnav{
+    position:sticky; top:0; z-index:30;
+    background:rgba(26,16,36,0.85); backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--hairline);
+    padding:18px 28px;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+  }
+  nav.topnav .brand{font-family:'Cormorant Garamond', serif; font-size:19px; letter-spacing:0.03em; color:var(--parchment); text-decoration:none;}
+  nav.topnav .links{display:flex; gap:26px;}
+  nav.topnav .links a{font-family:'Cormorant Garamond', serif; font-size:16px; letter-spacing:0.03em; color:var(--parchment-dim); text-decoration:none; transition:color .25s ease;}
+  nav.topnav .links a:hover, nav.topnav .links a.active{color:var(--gold-bright);}
+  .nav-oracolo{
+    font-family:'Cormorant Garamond', serif; font-style:italic; font-size:15px; letter-spacing:0.03em;
+    color:#1a1024; text-decoration:none; white-space:nowrap;
+    background:linear-gradient(135deg, #e6c877, #c9a84c);
+    padding:8px 20px; border-radius:20px; transition:opacity .25s ease, transform .25s ease;
+  }
+  .nav-oracolo:hover{opacity:0.85;}
+
+  section{padding:80px 0;}
+  section h2{font-size:clamp(28px,5vw,38px); color:var(--parchment); margin:10px 0 20px;}
+  section > .wrap > p.intro{color:var(--parchment-dim); margin-bottom:50px; font-size:18px; max-width:520px;}
+
+  /* empty state */
+  .empty-state{
+    text-align:center;
+    padding:60px 30px;
+    border:1px dashed var(--hairline);
+    border-radius:2px;
+  }
+  .empty-state svg{width:30px; height:30px; margin-bottom:22px; opacity:0.7;}
+  .empty-state p.msg{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:20px;
+    color:var(--gold-bright);
+    margin-bottom:10px;
+  }
+  .empty-state p.sub{color:var(--parchment-dim); font-size:15px; max-width:380px; margin:0 auto;}
+
+  /* pinned manifesto article */
+  .pinned{
+    background:var(--panel); border:1px solid var(--hairline); border-radius:2px;
+    padding:44px 38px; margin-bottom:50px; position:relative;
+  }
+  .pinned::before{content:""; position:absolute; top:-1px; left:38px; right:38px; height:1px; background:linear-gradient(90deg, transparent, var(--gold), transparent);}
+  .pinned .pin-label{font-family:'Cormorant Garamond', serif; font-style:italic; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold-bright); margin-bottom:18px; display:block;}
+  .pinned h3{font-size:26px; color:var(--parchment); margin-bottom:22px; font-weight:500;}
+  .pinned p{color:var(--parchment-dim); margin-bottom:16px; font-size:17px; line-height:1.75;}
+  .pinned p:last-child{margin-bottom:0;}
+  .articles-grid{display:grid; grid-template-columns:1fr; gap:18px; margin-top:10px;}
+  .pinned-img{width:100%; max-height:280px; object-fit:cover; border-radius:2px; margin-bottom:26px; display:block; border:1px solid var(--hairline);}
+  .article-card{
+    background:var(--panel); border:1px solid var(--hairline); border-radius:2px;
+    overflow:hidden; text-decoration:none; display:block; transition:border-color .25s ease;
+  }
+  .article-card:hover{border-color:var(--gold);}
+  .article-card img{width:100%; height:200px; object-fit:cover; display:block;}
+  .article-card .ac-body{padding:24px 24px 26px;}
+  .article-card .cat{font-family:'Cormorant Garamond', serif; font-style:italic; font-size:13px; color:var(--gold-bright); margin-bottom:8px; display:block;}
+  .article-card h3{font-size:21px; color:var(--parchment); margin-bottom:8px; font-weight:500;}
+  .article-card p{font-size:15px; color:var(--parchment-dim); margin:0;}
+  .article-card .date{font-size:13px; color:var(--parchment-dim); opacity:0.7; margin-top:10px; display:block;}
+
+  footer{padding:40px 0 80px; text-align:center;}
+  footer .contacts{font-size:14px; color:var(--parchment-dim);}
+  footer .contacts a{margin:0 10px;}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html" class="brand">Velum Dei Arcana</a>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="chi-sono.html">Chi sono</a>
+    <a href="articoli.html" class="active">Articoli</a>
+    <a href="tariffe.html">Tariffe</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contatti.html">Contatti</a>
+  </div>
+  <a href="oracolo.html" class="nav-oracolo">✦ Oracolo</a>
+</nav>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Studi e riflessioni</p>
+    <h2>Articoli</h2>
+
+    <div class="pinned">
+      <span class="pin-label">Perché Velum Dei Arcana</span>
+      <img src="images/articoli/pietre-giosue-velo.webp" alt="Mano che scosta una tenda viola ricamata con simboli dorati, lasciando filtrare la luce di una candela" class="pinned-img">
+      <h3>Vi è un velo.</h3>
+      <p>Chi lo guarda da fuori vede soltanto tessuto, ombra e silenzio. Chi lo attraversa scopre che, dietro ciò che appare, i misteri hanno una direzione. E un nome.</p>
+      <p>Questo è uno spazio per chi ha sete di conoscere Dio. Non l'universo, non l'energia, non un tutto indistinto: un Dio presente, personale, conoscibile. Non quello delle religioni, non quello di cui parlano predicatori e guru. Un Maestro, una Guida, uno Spirito con cui entrare in relazione.</p>
+      <p>Io non sono una maestra spirituale. Chiamatemi come volete, ma non chiamatemi maestra. Sono soltanto un canale, una facilitatrice. Vi è un solo Maestro, e ciò che mi interessa è che Lui venga conosciuto. Non guido verso di me, ma verso Colui che, sollevato il velo, resta.</p>
+      <p>Ipnosi, tarocchi, viaggi astrali, sogni, visioni e stati oltre la veglia ordinaria sono, per me, strumenti e chiavi. Non il fine. Ogni chiave apre una stanza della stessa casa: quella interiore, dove Dio può smettere di essere un'idea e diventare Presenza.</p>
+      <p>Non è un luogo per tutti. Ma chi ha sentito, anche una sola volta, che dietro le cose c'è Qualcuno che guarda e chiama per nome, forse riconoscerà questo luogo.</p>
+      <p>A chi bussa verrà aperto perché l'ingresso è parte del rito.</p>
+      <p>È una soglia, un varco sottile. Un luogo di passaggio, ma anche un posto dove sostare, se ne senti il richiamo. Sono le anime a incontrarsi e a scegliersi. È il richiamo sotto la pelle quello che ti dice: resta.</p>
+    </div>
+
+    <div class="articles-grid">
+      <a href="pietre-di-giosue.html" class="article-card">
+        <img src="images/articoli/pietre-giosue-menhir.webp" alt="Grande pietra eretta sotto una quercia al crepuscolo, con una lanterna accesa ai suoi piedi">
+        <div class="ac-body">
+          <span class="cat">Bibbia e metagenealogia</span>
+          <h3>Le pietre di Giosuè. Quattro segni nel tuo cammino</h3>
+          <p>Nel libro di Giosuè la pietra ritorna continuamente: memoria, peso, soglia, testimone. Quattro segni antichi per leggere le pietre che portiamo, ancora oggi, dentro di noi.</p>
+          <span class="date">15 agosto 2026</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="contacts">
+    <a href="index.html">Home</a>·
+    <a href="chi-sono.html">Chi sono</a>·
+    <a href="tariffe.html">Tariffe</a>·
+    <a href="faq.html">FAQ</a>·
+    <a href="contatti.html">Contatti</a>·
+    <a href="privacy.html">Privacy</a>·
+    <a href="termini.html">Termini e Condizioni</a>
+  </p>
+  <p class="copyright" style="font-size:12px; color:var(--parchment-dim); opacity:0.6; margin-top:18px;">© 2026 Velum Dei Arcana. Tutti i diritti riservati.</p>
+</footer>
+
+</body>
+</html>
