@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oracolo — Velum Dei Arcana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --indigo-deep: #1a1024;
+    --indigo: #241531;
+    --indigo-soft: #2e1c3f;
+    --lavender: #b9a4d6;
+    --lavender-dim: #7d6a94;
+    --gold: #c9a84c;
+    --gold-bright: #e6c877;
+    --parchment: #ece6e0;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(90,60,120,0.35), transparent 60%),
+      radial-gradient(ellipse at 20% 90%, rgba(60,30,80,0.3), transparent 55%),
+      var(--indigo-deep);
+    color: var(--parchment);
+    font-family:'EB Garamond', serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding: 6vh 20px 8vh;
+    overflow-x:hidden;
+  }
+
+  .eyebrow{
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    font-size:0.72rem;
+    color: var(--lavender-dim);
+    margin-bottom: 14px;
+  }
+
+  h1{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:500;
+    font-style:italic;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    color: var(--gold-bright);
+    margin: 0 0 10px;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+
+  .intro-lungo{
+    max-width: 560px;
+    color: var(--lavender);
+    font-size: 1.02rem;
+    line-height: 1.85;
+    text-align: left;
+    margin-bottom: 40px;
+  }
+  .intro-lungo p{
+    margin: 0 0 20px;
+  }
+  .intro-lungo p:first-child{
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--gold-bright);
+    font-size: 1.3rem;
+    text-align:center;
+    margin-bottom: 26px;
+  }
+  .intro-lungo p:last-child{
+    margin-bottom: 0;
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .intro{
+    max-width: 480px;
+    text-align:center;
+    color: var(--lavender);
+    font-size: 1.05rem;
+    line-height:1.6;
+    margin-bottom: 48px;
+  }
+
+  .stage{
+    position:relative;
+    width: 260px;
+    height: 400px;
+    perspective: 1600px;
+    margin-bottom: 32px;
+  }
+
+  .card{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    cursor:pointer;
+    transform-style: preserve-3d;
+    transition: transform 1.1s cubic-bezier(.2,.9,.25,1);
+  }
+
+  .card.flipped{
+    transform: rotateY(180deg);
+    cursor: default;
+  }
+
+  .card-face{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    backface-visibility:hidden;
+    border-radius: 14px;
+    overflow:hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,168,76,0.15);
+  }
+
+  .card-back{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .card-back img, .card-back .fallback-tree{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card-back-glow{
+    position:absolute;
+    inset:0;
+    box-shadow: inset 0 0 40px rgba(255,235,180,0.25);
+    pointer-events:none;
+    opacity:0;
+    transition:opacity .4s;
+  }
+  .stage:hover .card:not(.flipped):not(.locked) .card-back-glow{ opacity:1; }
+
+  .card.locked{ cursor: default; }
+  .card.locked .card-face{ filter: saturate(0.5) brightness(0.75); }
+
+  .card-front{
+    transform: rotateY(180deg);
+    background: var(--indigo-soft);
+  }
+
+  .card-front img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    display:block;
+  }
+
+  .card.drawing{
+    animation: shimmerPulse 1.1s ease-in-out;
+  }
+  @keyframes shimmerPulse{
+    0%{ filter: brightness(1); }
+    45%{ filter: brightness(1.35) saturate(1.2); }
+    100%{ filter: brightness(1); }
+  }
+
+  nav.topnav{
+    position:sticky; top:0; z-index:30;
+    width:100%;
+    background:rgba(26,16,36,0.85); backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(185,164,214,0.25);
+    padding:18px 28px;
+    margin: -6vh -20px 6vh;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+  }
+  nav.topnav .brand{
+    font-family:'Cormorant Garamond', serif; font-size:19px; letter-spacing:0.03em;
+    color: var(--parchment); text-decoration:none;
+  }
+  nav.topnav .links{display:flex; gap:26px; flex-wrap:wrap;}
+  nav.topnav .links a{
+    font-family:'Cormorant Garamond', serif; font-size:16px; letter-spacing:0.03em;
+    color: var(--lavender-dim); text-decoration:none; transition:color .25s ease;
+  }
+  nav.topnav .links a:hover, nav.topnav .links a.active{color: var(--gold-bright);}
+
+  @media (max-width:600px){
+    nav.topnav{padding:14px 18px; margin:-6vh -20px 4vh;}
+    nav.topnav .links{gap:16px; justify-content:center;}
+  }
+
+  .hint{
+    color: var(--lavender-dim);
+    font-style: italic;
+    font-size: 0.95rem;
+    margin-bottom: 28px;
+    min-height: 1.4em;
+    text-align:center;
+    max-width: 340px;
+  }
+
+  .reveal{
+    text-align:center;
+    max-width: 480px;
+    width:100%;
+    opacity:0;
+    transform: translateY(8px);
+    transition: opacity .8s ease .3s, transform .8s ease .3s;
+    pointer-events:none;
+  }
+  .reveal.visible{
+    opacity:1;
+    transform: translateY(0);
+    pointer-events:auto;
+  }
+
+  .reveal .numero{
+    font-family:'Cormorant Garamond', serif;
+    color: var(--gold);
+    letter-spacing:0.25em;
+    font-size:0.85rem;
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+
+  .reveal h2{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:500;
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    color: var(--parchment);
+    margin: 0 0 26px;
+    font-style: italic;
+  }
+
+  .riflessione{
+    font-style: italic;
+    color: var(--lavender);
+    font-size: 1.12rem;
+    line-height: 1.75;
+    padding: 26px 28px;
+    border-top: 1px solid rgba(201,168,76,0.25);
+    border-bottom: 1px solid rgba(201,168,76,0.25);
+    margin-bottom: 30px;
+  }
+
+  .redraw-btn{
+    background:transparent;
+    border:1px solid var(--gold);
+    color: var(--gold-bright);
+    font-family:'EB Garamond', serif;
+    font-size:0.95rem;
+    letter-spacing:0.08em;
+    padding: 12px 30px;
+    border-radius: 999px;
+    cursor:pointer;
+    transition: background .3s, color .3s;
+  }
+  .redraw-btn:hover{
+    background: var(--gold);
+    color: var(--indigo-deep);
+  }
+  .redraw-btn:disabled{
+    opacity:0.4;
+    cursor: default;
+  }
+  .redraw-btn:disabled:hover{
+    background:transparent;
+    color: var(--gold-bright);
+  }
+  .redraw-btn:focus-visible{
+    outline: 2px solid var(--gold-bright);
+    outline-offset: 3px;
+  }
+
+  .followups{
+    max-width: 480px;
+    width:100%;
+    margin-top: 44px;
+    opacity:0;
+    transform: translateY(10px);
+    transition: opacity .8s ease, transform .8s ease;
+    pointer-events:none;
+  }
+  .followups.visible{
+    opacity:1;
+    transform: translateY(0);
+    pointer-events:auto;
+  }
+
+  .panel{
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 16px;
+    padding: 28px 26px;
+    margin-bottom: 22px;
+  }
+
+  .panel h3{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:500;
+    font-style: italic;
+    color: var(--gold-bright);
+    font-size: 1.4rem;
+    margin: 0 0 10px;
+    text-align:center;
+  }
+
+  .panel p.desc{
+    color: var(--lavender);
+    font-size: 0.95rem;
+    text-align:center;
+    line-height:1.5;
+    margin: 0 0 20px;
+  }
+
+  .field-row{
+    display:flex;
+    gap:10px;
+    flex-wrap: wrap;
+  }
+
+  input[type="email"], textarea{
+    flex:1;
+    min-width: 180px;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: var(--parchment);
+    font-family:'EB Garamond', serif;
+    font-size: 1rem;
+  }
+  textarea{
+    width:100%;
+    min-height: 100px;
+    resize: vertical;
+    margin-bottom: 14px;
+  }
+  input[type="email"]::placeholder, textarea::placeholder{
+    color: var(--lavender-dim);
+  }
+  input:focus, textarea:focus{
+    outline: none;
+    border-color: var(--gold);
+  }
+
+  .submit-btn{
+    background: var(--gold);
+    color: var(--indigo-deep);
+    border:none;
+    font-family:'EB Garamond', serif;
+    font-weight: 500;
+    font-size:0.95rem;
+    letter-spacing:0.03em;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor:pointer;
+    transition: background .3s;
+    white-space: nowrap;
+  }
+  .submit-btn:hover{ background: var(--gold-bright); }
+
+  .panel-note{
+    font-size: 0.82rem;
+    color: var(--lavender-dim);
+    text-align:center;
+    margin-top: 14px;
+  }
+
+  .confirm-msg{
+    text-align:center;
+    color: var(--gold-bright);
+    font-style: italic;
+    font-size: 0.95rem;
+    display:none;
+  }
+  .confirm-msg.visible{ display:block; }
+
+  footer{
+    margin-top: 60px;
+    font-size:0.8rem;
+    color: var(--lavender-dim);
+    letter-spacing:0.05em;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .card{ transition: none; }
+    .card.drawing{ animation:none; }
+  }
+
+  @media (max-width: 380px){
+    .stage{ width: 220px; height: 340px; }
+    .field-row{ flex-direction:column; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html" class="brand">Velum Dei Arcana</a>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="chi-sono.html">Chi sono</a>
+    <a href="articoli.html">Articoli</a>
+    <a href="tariffe.html">Tariffe</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contatti.html">Contatti</a>
+  </div>
+</nav>
+
+  <p class="eyebrow">Velum Dei Arcana</p>
+  <h1>L'Oracolo</h1>
+
+  <div class="intro-lungo" id="introLungo">
+    <p>Questo è un mazzo originale.</p>
+    <p>Ogni carta custodisce un significato come uno scrigno chiuso, non nasce per predire il futuro, ma per svelare qualcosa che non si consuma nell'istante in cui la carta viene scoperta, ma che si apre poco a poco dentro chi la raccoglie, carta dopo carta, giorno dopo giorno, nella meditazione.</p>
+    <p>I significati custoditi in ogni carta sono profondi, e per questo ho scelto di limitarne l'accesso a una sola al giorno: perché i simboli e le parole abbiano il tempo di scendere in profondità, di sedimentare in chi li accoglie, prima di lasciare spazio a un nuovo messaggio.</p>
+    <p>Le figure che vedi sono nate da una canalizzazione, insieme al messaggio che le accompagna.</p>
+    <p>L'intento non è divinatorio, ma riflessivo: aprire il cuore al Grande Messaggero, lo Spirito, e di conseguenza a Dio.</p>
+    <p>Spero che ogni carta possa essere una piccola benedizione per il tuo cammino.</p>
+    <p>Se senti il desiderio di confidarmi cosa la carta e il suo messaggio ti hanno trasmesso, sarò onorata di accoglierti e di leggerti.</p>
+  </div>
+
+  <p class="intro" id="introText" style="display:none;"></p>
+
+  <div class="stage" id="stage">
+    <div class="card" id="card">
+      <div class="card-face card-back" id="cardBack">
+        <div class="card-back-glow"></div>
+        <img src="retro.webp" alt="" onerror="this.style.display='none'; this.parentNode.querySelector('.fallback-tree').style.display='block';">
+        <svg class="fallback-tree" viewBox="0 0 100 100" style="display:none;" fill="none" stroke="#3a2a10" stroke-width="1.2">
+          <circle cx="50" cy="45" r="30" stroke="#5c4318"/>
+          <text x="50" y="52" font-size="22" fill="#3a2a10" text-anchor="middle" font-family="serif">A2</text>
+        </svg>
+      </div>
+      <div class="card-face card-front" id="cardFront">
+        <img id="cardFrontImg" src="" alt="">
+      </div>
+    </div>
+  </div>
+
+  <p class="hint" id="hint">Tocca il retro della carta per pescare una carta</p>
+
+  <div class="reveal" id="reveal">
+    <p class="numero" id="revNumero"></p>
+    <h2 id="revNome"></h2>
+    <p class="riflessione" id="revRiflessione"></p>
+    <button class="redraw-btn" id="redrawBtn">Torna domani per una nuova carta</button>
+  </div>
+
+  <div class="followups" id="followups">
+
+    <div class="panel">
+      <h3>Scrivimi la tua riflessione</h3>
+      <p class="desc">Se desideri condividere con me cosa questa carta ti ha dato, cosa hai percepito e cosa ha mosso in te, scrivimelo qui.</p>
+      <form id="contactForm">
+        <input type="hidden" name="access_key" value="b19574e5-67e7-4519-b124-99548ac8f6eb">
+        <input type="hidden" name="subject" id="contactSubject" value="Riflessione sull'Oracolo">
+        <input type="hidden" name="from_name" value="Oracolo — Velum Dei Arcana">
+        <input type="checkbox" name="botcheck" class="honeypot" style="display:none">
+        <textarea id="contactMessage" name="message" placeholder="Scrivi qui la tua riflessione o la tua domanda..."></textarea>
+        <div class="field-row">
+          <input type="email" id="contactEmail" name="email" placeholder="La tua email" required>
+          <button type="submit" class="submit-btn">Invia</button>
+        </div>
+      </form>
+      <p class="panel-note" id="contactNote">Il messaggio arriverà direttamente alla mia casella di posta.</p>
+    </div>
+
+  </div>
+
+  <footer>© Velum Dei Arcana</footer>
+
+<script>
+  // Mazzo completo — 33 carte + dorso.
+  // ATTENZIONE: sostituisci ogni "file" con il nome esatto del tuo .webp
+  // caricato nella STESSA cartella "oracolo" di questa pagina (es. 01-yhwh.webp)
+  const mazzo = [
+    { numero: "I",      nome: "YHWH",               file: "01-yhwh.webp",
+      riflessione: "Tu, non puoi essere rappresentato, hai usato il cielo come un velo per proteggerci dalla Tua maestà. Tutto in Te desidera manifestarsi nel mio cuore." },
+    { numero: "II",     nome: "Yeshua",              file: "02-yeshua.webp",
+      riflessione: "Una strada chi la può conoscere, se non chi l'ha tracciata? Tu sei il velo che hai spezzato per offrirci la manifestazione. Vita e Verità si fondono, danzano sulla stessa Via. Tu sei ciò che io avrei dovuto essere. Ma ora io Ti ho visto." },
+    { numero: "III",    nome: "Spirito Santo",       file: "03-spirito-santo.webp",
+      riflessione: "Chi sa che il mio corpo è un tempio? È per ospitare Te, mio Signore. Per offrirti ogni giorno un culto e le primizie del mio cuore. Quando avrò fatto del mio cuore il Tuo altare... io non mi apparterrò più." },
+    { numero: "IV",     nome: "Connessione",         file: "04-connessione.webp",
+      riflessione: "Chi mai poté entrare in un sepolcro e vederlo vuoto? Quando i morti si solleveranno sarà per adorare Colui che ha vinto anche l'ultimo mio nemico." },
+    { numero: "V",      nome: "Guarigione",          file: "05-guarigione.webp",
+      riflessione: "Perché ti agiti in me? Spera in Lui perché ti rialzerà dalla polvere. Nella tua testa metterà un diadema. Onore anziché cenere. Lui ha sanato tutta la tua vergogna." },
+    { numero: "VI",     nome: "Elevazione",          file: "06-elevazione.webp",
+      riflessione: "Quando ti spezzi, quando lasci da te la vita evolversi, non sarai più tu, ma la Vita a farsi strada nella terra e tu potrai finalmente riposare." },
+    { numero: "VII",    nome: "Possedere Tutto",     file: "07-possedere-tutto.webp",
+      riflessione: "Se conoscessi il tuo valore, lasceresti tutto per avere Lui. Ma se sei alla ricerca di tutto, tutto perderai." },
+    { numero: "VIII",   nome: "Lasciare Andare",     file: "08-lasciare-andare.webp",
+      riflessione: "Cammina, le tue suole raccolgono polvere. Ma la polvere del mondo non ti appartiene. Ti appartiene quella del cielo. Allora cammina nelle Sue vie." },
+    { numero: "IX",     nome: "Perdono",             file: "09-perdono.webp",
+      riflessione: "Un dono che suscita sentimenti negativi e istinto di protezione. Perché non sai accettare semplicemente un regalo. Questa volta, non puoi ricambiare." },
+    { numero: "X",      nome: "Riconciliazione",     file: "10-riconciliazione.webp",
+      riflessione: "È dall'alto che ricevi un abbraccio. Più di mille parole. Perché hai bisogno di sentire Colui che ha dato la vita per te. Un valore inestimabile." },
+    { numero: "XI",     nome: "Chi Sono",            file: "11-chi-sono.webp",
+      riflessione: "Chi ha conosciuto un corpo che come il pane si spezza per rivelarti chi sei. Non cercare conferme fuori. È già tutto dentro di te, ma c'è bisogno della Luce per vederlo." },
+    { numero: "XII",    nome: "Perché Esisto",       file: "12-perche-esisto.webp",
+      riflessione: "Ti ho intessuto abilmente nel grembo. Non per lasciarti andare, ma per averti. Non ti ignoro, ascolto i tuoi sussurri. Ma ti aspetto, fino a quando non vorrai unirti a Me." },
+    { numero: "XIII",   nome: "Dove Vado",           file: "13-dove-vado.webp",
+      riflessione: "Due strade, non ce ne sono mille. Non illuderti. La scelta è sempre una." },
+    { numero: "XIV",    nome: "Le Parti di Me",      file: "14-le-parti-di-me.webp",
+      riflessione: "Mi compongono tre strati, ma la vera scoperta sta nell'allineamento." },
+    { numero: "XV",     nome: "Far Entrare",         file: "15-far-entrare.webp",
+      riflessione: "Quando lo spirito mio ti guarda, o Dio, la mia anima incuriosita segue il mio sguardo e il corpo come un destriero domato alle briglie ubbidisce. Ci dirigiamo verso un'unica direzione." },
+    { numero: "XVI",    nome: "Contattarsi",         file: "16-contattarsi.webp",
+      riflessione: "Trovami e ridestami, Spirito Divino. Creatore Tu sei. Il legame oscuro, profondo, a Te è svelato come in pieno giorno. Davanti ai Tuoi occhi non c'è mistero. Contattami e ti mostrerò le radici." },
+    { numero: "XVII",   nome: "Riposo",              file: "17-riposo.webp",
+      riflessione: "Il riposo è una conquista dell'anima. Quando essa si abbandona e brama qualcosa oltre se stessa. Abbandona ogni desiderio che la domina, si apre a ricevere ciò che non le appartiene, ma che sarà tutto. Non sono più le mie conquiste, ma le Sue." },
+    { numero: "XVIII",  nome: "Salvezza",            file: "18-salvezza.webp",
+      riflessione: "Non verrà più giù perché è già venuto e ha aperto la tua strada. Ora sei libero di andare a Lui. Elevati per avere occhi nuovi e nuove prospettive." },
+    { numero: "XIX",    nome: "Trasformazione",      file: "19-trasformazione.webp",
+      riflessione: "Quando lo Spirito entra inizia a nutrire il tuo spirito e con il desiderio esso si plasma intorno a Lui. Cambierai forma dall'interno." },
+    { numero: "XX",     nome: "Resurrezione",        file: "20-resurrezione.webp",
+      riflessione: "La paura più grande si nasconde dove non vuoi morire. Ma quando lasci andare la forma capisci che non c'è nulla di più liberatorio per vivere." },
+    { numero: "XXI",    nome: "Nuova Nascita",       file: "21-nuova-nascita.webp",
+      riflessione: "Chi si sa amare? Se non sei stato amato come desideri, solo Uno ti può svelare questa parola misteriosa. Non si riceve con la mente ma con il cuore." },
+    { numero: "XXII",   nome: "Pace",                file: "22-pace.webp",
+      riflessione: "La pace è una persona, non una sensazione. Una persona che viene a regnare nel cuore. È il Conquistatore e, se gli hai aperto le porte, non si fermerà fino a quando non ti avrà conquistato per intero. Pace è l'effetto che fanno le Sue bandiere." },
+    { numero: "XXIII",  nome: "Tutti i Misteri",     file: "23-tutti-i-misteri.webp",
+      riflessione: "Quante chiavi servono per conoscere ogni cosa... e se te ne bastasse una?" },
+    { numero: "XXIV",   nome: "Conoscenza",          file: "24-conoscenza.webp",
+      riflessione: "La vera sapienza consiste nel non possedere nemmeno se stessi, ma avviene per effetto di aver posseduto qualcosa di più grande." },
+    { numero: "XXV",    nome: "Consapevolezza",      file: "25-consapevolezza.webp",
+      riflessione: "Quanto vivrai? Pellegrini, abitanti di un regno che non abbiamo visto se non con il cuore. Ma lì sta la mia casa e lì ritornerò. Verrai con me?" },
+    { numero: "XXVI",   nome: "Gli Altri",           file: "26-gli-altri.webp",
+      riflessione: "Non ho un destino solitario, perché è un corpo solo quello a cui appartengo. Ti prego fammi da specchio in modo che io possa guarire." },
+    { numero: "XXVII",  nome: "Uscire dai Problemi", file: "27-uscire-dai-problemi.webp",
+      riflessione: "Non ho una valigia, ma due e il mio cammino è difficile. Ma non voglio dare nulla, i miei pesi mi appartengono perché non mi fido che Tu possa appagarmi. Mettimi alla prova." },
+    { numero: "XXVIII", nome: "Arrendersi",          file: "28-arrendersi.webp",
+      riflessione: "Come l'acqua che scava la roccia, qual è il cuore che sappia arrendersi all'amore? L'amore distrugge prima di dissetare. La resa è una vittoria personale, solo morendo si vive." },
+    { numero: "XXIX",   nome: "Amare",               file: "29-amare.webp",
+      riflessione: "C'è chi dice che amarsi è la chiave per amare gli altri. Ma qual è la chiave per amare se stessi? Quando accetterò il Tuo amore io Ti vedrò in ogni creatura. Non occorre nessuno sforzo perché Ti amo." },
+    { numero: "XXX",    nome: "Io",                  file: "30-io.webp",
+      riflessione: "Quando mi vedrò, non vedrò più me ma Lui, e allora capirò che mi ha dato tutto ciò che desidero essere." },
+    { numero: "XXXI",   nome: "Libertà",             file: "31-liberta.webp",
+      riflessione: "Posso ogni cosa. Non ho alcun limite. Non ho divieti, né colpa. Io sono libero perché amo tutto ciò che Lui ama." },
+    { numero: "XXXII",  nome: "Schiavitù",           file: "32-schiavitu.webp",
+      riflessione: "Spinto da una volontà che non è la mia, cerco di riempire un vuoto. È il vuoto che mi possiede, il bisogno, la mancanza, le mie ferite. Chi desidera in me se ciò che voglio mi danneggia?" },
+    { numero: "XXXIII", nome: "Come Ritrovarti",     file: "33-come-ritrovarti.webp",
+      riflessione: "Occorre una rivelazione per capire chi Sei. Occorre una rivelazione di chi io sono. E allora non mi importerà più cosa diranno di Te, perché il mio cuore ascolterà un'altra voce e io inizierò a desiderare di stare nel Tuo Santuario per adorarti in eterno." }
+  ];
+
+  const STORAGE_KEY = 'vda_oracolo_ultima_pescata';
+
+  const card = document.getElementById('card');
+  const hint = document.getElementById('hint');
+  const intro = document.getElementById('introText');
+  const reveal = document.getElementById('reveal');
+  const revNumero = document.getElementById('revNumero');
+  const revNome = document.getElementById('revNome');
+  const revRiflessione = document.getElementById('revRiflessione');
+  const cardFrontImg = document.getElementById('cardFrontImg');
+  const redrawBtn = document.getElementById('redrawBtn');
+  const followups = document.getElementById('followups');
+
+  function oggiISO(){
+    const d = new Date();
+    return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
+  }
+
+  function giaPescatoOggi(){
+    try{
+      const salvato = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+      return salvato && salvato.data === oggiISO() ? salvato : null;
+    }catch(e){ return null; }
+  }
+
+  function salvaPescata(scelta){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ data: oggiISO(), carta: scelta }));
+  }
+
+  function mostraCarta(scelta, animata){
+    cardFrontImg.src = scelta.file;
+    cardFrontImg.alt = scelta.numero + ' — ' + scelta.nome;
+
+    if(animata){
+      card.classList.add('drawing');
+      setTimeout(() => card.classList.remove('drawing'), 1100);
+    }
+
+    card.classList.add('flipped');
+    hint.style.opacity = '0';
+
+    revNumero.textContent = 'Arcano ' + scelta.numero;
+    revNome.textContent = scelta.nome;
+    revRiflessione.textContent = scelta.riflessione;
+
+    setTimeout(() => { reveal.classList.add('visible'); }, animata ? 500 : 50);
+    setTimeout(() => { followups.classList.add('visible'); }, animata ? 1600 : 400);
+
+    redrawBtn.disabled = true;
+  }
+
+  function drawCard(){
+    const scelta = mazzo[Math.floor(Math.random() * mazzo.length)];
+    salvaPescata(scelta);
+    mostraCarta(scelta, true);
+  }
+
+  const pescataOggi = giaPescatoOggi();
+  if(pescataOggi){
+    intro.textContent = 'I simboli e i significati di questa carta sono con te oggi. Torna domani se lo desideri, ma oggi lasciati abitare da loro.';
+    intro.style.display = 'block';
+    mostraCarta(pescataOggi.carta, false);
+    card.classList.add('locked');
+  } else {
+    card.addEventListener('click', () => {
+      if (!card.classList.contains('flipped')) drawCard();
+    });
+  }
+
+  const contactForm = document.getElementById('contactForm');
+  const contactNote = document.getElementById('contactNote');
+  const contactSubject = document.getElementById('contactSubject');
+  const submitBtn = contactForm.querySelector('.submit-btn');
+
+  contactForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+
+    const msg = document.getElementById('contactMessage').value.trim();
+    const mail = document.getElementById('contactEmail').value.trim();
+    const cartaNome = (typeof revNome !== 'undefined' && revNome.textContent) ? revNome.textContent : '';
+
+    contactSubject.value = 'Riflessione sull\'Oracolo — ' + (cartaNome || 'nessuna carta');
+
+    // Componi il messaggio includendo la carta pescata
+    const fullMessage = 'Carta ricevuta: ' + (cartaNome || 'n/d') + '\n\n' + msg;
+    const messageField = document.getElementById('contactMessage');
+    const originalValue = messageField.value;
+    messageField.value = fullMessage;
+
+    const formData = new FormData(contactForm);
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Invio...';
+    contactNote.textContent = 'Invio in corso...';
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formData
+      });
+      const result = await response.json();
+
+      if (result.success) {
+        contactNote.textContent = 'Grazie, il tuo messaggio è stato inviato. Ti risponderò presto.';
+        contactForm.reset();
+      } else {
+        contactNote.textContent = 'Qualcosa è andato storto. Riprova oppure scrivimi direttamente a info@velumdeiarcana.it.';
+      }
+    } catch (err) {
+      contactNote.textContent = 'Qualcosa è andato storto. Riprova oppure scrivimi direttamente a info@velumdeiarcana.it.';
+    } finally {
+      messageField.value = originalValue;
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Invia';
+    }
+  });
+</script>
+
+</body>
+</html>
