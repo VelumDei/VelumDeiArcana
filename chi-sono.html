@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Chi sono — Velum Dei Arcana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2a1b3d; --ink-2:#341f4a; --panel:#3d2650;
+    --parchment:#f0e9de; --parchment-dim:#c9b8d6;
+    --gold:#c9a84c; --gold-bright:#e8c874;
+    --wine:#5a3f7d; --hairline:rgba(232,200,116,0.30);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  html{background:var(--ink); min-height:100%;}
+  body{background:var(--ink); color:var(--parchment); font-family:'EB Garamond', serif; font-size:18px; line-height:1.7; min-height:100vh; position:relative;}
+  ::selection{background:var(--wine); color:var(--parchment);}
+  body::before{
+    content:""; position:fixed; inset:0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(232,200,116,0.12), transparent 60%),
+      radial-gradient(ellipse 80% 50% at 50% 100%, rgba(90,63,125,0.35), transparent 60%);
+    pointer-events:none; z-index:0;
+  }
+  .wrap{max-width:700px; margin:0 auto; padding:0 28px; position:relative; z-index:1;}
+  h1,h2,h3{font-family:'Cormorant Garamond', serif; font-weight:500; letter-spacing:0.01em;}
+  .eyebrow{font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:400; letter-spacing:0.14em; text-transform:uppercase; font-size:13px; color:var(--gold-bright); opacity:0.85;}
+  a{color:var(--gold-bright);}
+
+  nav.topnav{
+    position:sticky; top:0; z-index:30;
+    background:rgba(26,16,36,0.85); backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--hairline);
+    padding:18px 28px;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+  }
+  nav.topnav .brand{font-family:'Cormorant Garamond', serif; font-size:19px; letter-spacing:0.03em; color:var(--parchment); text-decoration:none;}
+  nav.topnav .links{display:flex; gap:26px;}
+  nav.topnav .links a{font-family:'Cormorant Garamond', serif; font-size:16px; letter-spacing:0.03em; color:var(--parchment-dim); text-decoration:none; transition:color .25s ease;}
+  nav.topnav .links a:hover, nav.topnav .links a.active{color:var(--gold-bright);}
+  .nav-oracolo{
+    font-family:'Cormorant Garamond', serif; font-style:italic; font-size:15px; letter-spacing:0.03em;
+    color:#1a1024; text-decoration:none; white-space:nowrap;
+    background:linear-gradient(135deg, #e6c877, #c9a84c);
+    padding:8px 20px; border-radius:20px; transition:opacity .25s ease, transform .25s ease;
+  }
+  .nav-oracolo:hover{opacity:0.85;}
+
+  section{padding:70px 0;}
+  section h2{font-size:clamp(28px,5vw,38px); color:var(--parchment); margin:10px 0 28px;}
+  section p{color:var(--parchment-dim); margin-bottom:18px; font-size:18px;}
+
+  .chi-sono-img{width:100%; max-height:520px; object-fit:cover; border-radius:2px; margin:28px 0 34px; display:block; border:1px solid var(--hairline);}
+
+  /* in-page jump nav to the 4 sections */
+  .subnav{
+    position:sticky; top:63px; z-index:20;
+    display:flex; gap:8px 22px; flex-wrap:wrap;
+    background:rgba(10,10,18,0.92); backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--hairline);
+    padding:16px 28px;
+  }
+  .subnav a{font-family:'Cormorant Garamond', serif; font-style:italic; font-size:15px; letter-spacing:0.02em; color:var(--parchment-dim); text-decoration:none; transition:color .25s ease;}
+  .subnav a:hover, .subnav a.active{color:var(--gold-bright);}
+
+  section + section{border-top:1px solid var(--hairline);}
+
+  .signature-line{font-style:italic; color:var(--gold-bright); font-family:'Cormorant Garamond', serif; font-size:20px; text-align:center; padding:60px 0 90px;}
+
+  footer{padding:40px 0 80px; text-align:center;}
+  footer .contacts{font-size:14px; color:var(--parchment-dim);}
+  footer .contacts a{margin:0 10px;}
+
+  @media (max-width:600px){
+    .subnav{top:60px; padding:14px 18px; gap:8px 16px;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html" class="brand">Velum Dei Arcana</a>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="chi-sono.html" class="active">Chi sono</a>
+    <a href="articoli.html">Articoli</a>
+    <a href="tariffe.html">Tariffe</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contatti.html">Contatti</a>
+  </div>
+  <a href="oracolo.html" class="nav-oracolo">✦ Oracolo</a>
+</nav>
+
+<nav class="subnav" id="jumpnav">
+  <a href="#chi-sono">Chi sono</a>
+  <a href="#la-mia-storia">La mia storia</a>
+  <a href="#il-mio-percorso">Il mio percorso</a>
+  <a href="#la-mia-missione">La mia missione</a>
+</nav>
+
+<section id="chi-sono">
+  <div class="wrap">
+    <p class="eyebrow" style="margin-top:60px;">Chi sono</p>
+    <h2>Consulente spirituale</h2>
+    <img src="images/chi-sono/ritratto-libreria.webp" alt="Figura di spalle davanti a una libreria antica, tra libri e cristalli" class="chi-sono-img">
+    <p>Sono una consulente spirituale e accompagno le persone in percorsi di conoscenza, consapevolezza e trasformazione interiore.</p>
+    <p>Il mio percorso nasce da una profonda ricerca interiore e dall'incontro con la dimensione spirituale, che nel tempo ha trasformato il mio modo di guardare me stessa, gli altri e la vita.</p>
+    <p>Ogni persona ha una storia, una sensibilità e un modo diverso di entrare in contatto con se stessa. Per questo il mio lavoro parte prima di tutto dall'ascolto.</p>
+  </div>
+</section>
+
+<section id="la-mia-storia">
+  <div class="wrap">
+    <h2>La mia storia</h2>
+    <p>I ricordi della mia infanzia sono attraversati da una percezione del mondo che allora non sapevo comprendere. Vedevo e sentivo cose che non riuscivo a spiegare e che, istintivamente, cercavo di disegnare, di raccontare, di capire.</p>
+    <p>Ero una bambina molto sensibile. Percepivo le persone prima ancora di riuscire a conoscerle davvero e spesso avevo bisogno di allontanarmi dal rumore del mondo per ritrovare il mio centro.</p>
+    <p>La solitudine e il silenzio sono stati, fin da allora, luoghi familiari. È lì che ho imparato ad ascoltare.</p>
+    <p>Per molti anni ho pensato che quella sensibilità fosse un peso troppo difficile da portare, una gabbia dalla quale non riuscivo a uscire. Poi è arrivato un incontro che ha cambiato radicalmente il mio modo di percepire me stessa e il mondo fisico e spirituale. Ha cambiato tutta la mia vita.</p>
+    <p>Ho incontrato Dio.</p>
+    <p>Non come un'idea, una forma religiosa come dogma da accettare, ma come una Presenza viva. Una Presenza che mi ha preso per mano e con dolcezza insegnato, lentamente, a guardare ciò che avevo sempre percepito, con occhi nuovi.</p>
+    <p>Da quel momento il mio rapporto con l'invisibile è radicalmente cambiato.</p>
+    <p>Ho compreso che non tutto ciò che si percepisce va seguito, che ogni voce va portata in un luogo di luce, e che la sensibilità, da sola, non è una guida. Il vero è spesso molto diverso dal reale.</p>
+    <p>Non mi considero proprietaria di ciò che ricevo, né padrona di verità da consegnare agli altri. Mi considero piuttosto una persona che continua ad ascoltare, a studiare, a fare esperienza e a lasciarsi guidare.</p>
+    <p>E tutto ciò che oggi offro nasce da questo mio percorso così intimo.</p>
+  </div>
+</section>
+
+<section id="il-mio-percorso">
+  <div class="wrap">
+    <h2>Il mio percorso</h2>
+    <p>Il mio percorso non è nato da una sola disciplina, né dalla volontà di trovare un metodo a cui affidarmi.</p>
+    <p>È stato, piuttosto, un cammino fatto di incontri, ricerca, studio ed esperienza diretta.</p>
+    <p>La mia formazione è iniziata in ambito artistico poi è proseguita attraverso gli studi umanistici con il percorso universitario in Lettere e Filosofia. L'arte e la poesia sono stati i primissimi modi attraverso cui esploravo l'animo umano e le domande profonde che da sempre lo accompagnano.</p>
+    <p>A vent'anni, dopo il mio incontro con il mio Maestro spirituale, è iniziato il percorso più importante della mia vita.</p>
+    <p>Ho attraversato esperienze e realtà diverse che mi hanno permesso non soltanto di approfondire la mia ricerca, ma anche di accompagnare altre persone nel loro cammino interiore.</p>
+    <p>In quegli anni ho avuto modo di confrontarmi con contesti e approcci differenti, imparando soprattutto il valore dell'ascolto e della presenza.</p>
+    <p>Ho inoltre approfondito il lavoro di cura dell'anima attraverso una specifica formazione con un reverendo sudamericano, entrando in contatto con una visione nella quale il profondo lavoro interiore può riflettersi anche sul piano fisico. È stata un'esperienza che mi ha permesso di osservare quanto la dimensione interiore e quella fisica possano essere profondamente interconnesse.</p>
+    <p>La mia ricerca si è estesa al rapporto tra la dimensione interiore e quella fisica.</p>
+    <p>Ho conseguito un diploma in Scienze della Salute e Nutrizione, con specializzazione in Medicina Alternativa attraverso l'Accademia Olistica. Attualmente sto proseguendo la mia formazione come consulente igienista presso Health Science University.</p>
+    <p>Negli ultimi anni ho scelto di approfondire anche il linguaggio simbolico dei Tarocchi, formandomi in Tarologia presso un'accademia specializzata, e sto attualmente completando la mia formazione come ipnoterapist olistica presso l'Ipnosi Academy.</p>
+    <p>Non considero queste esperienze come percorsi separati.</p>
+    <p>Sono linguaggi diversi attraverso i quali ho imparato a guardare la persona nella sua interezza: nella sua dimensione interiore, spirituale, mentale e fisica.</p>
+    <p>È da questa ricerca, ancora in corso, che nasce il mio modo di accompagnare le persone oggi, lasciando che ogni esperienza trovi il proprio posto all'interno di una visione più ampia.</p>
+  </div>
+</section>
+
+<section id="la-mia-missione">
+  <div class="wrap">
+    <h2>La mia missione</h2>
+    <p>La mia missione è accompagnare le persone a conoscersi, a uscire dalla rigidità, dal proprio modo di pensarsi spesso limitante.</p>
+    <p>E in questo una guida preziosa è lo Spirito.</p>
+    <p>Sono convinta che attraverso la conoscenza di Dio possiamo entrare in contatto con noi stessi nella maniera più autentica e pulita. Perché per conoscersi occorre prima lasciare andare ciò che pensiamo di conoscere. Ed è inevitabile che quando lasciamo andare serve fiducia in qualcosa di più grande di noi. Qualcosa che se non abbiamo incontrato personalmente non abbiamo effettivamente mai conosciuto.</p>
+    <p>Non siamo separati da ciò da cui proveniamo.</p>
+    <p>Siamo come la luna davanti al sole: possiamo brillare, ma la nostra luce nasce da una connessione molto più profonda.</p>
+    <p>Siamo specchi e vasi.</p>
+    <p>E finché non comprendiamo da dove viene la luce che ci attraversa, rischiamo di confondere il riflesso con la fonte, di cercare dentro di noi ciò che può essere trovato soltanto tornando alla sua origine.</p>
+    <p>Per questo, nel mio cammino, conoscere se stessi e conoscere Dio non sono due strade diverse.</p>
+    <p>Più ci avviciniamo a Lui, più possiamo vedere ciò che siamo veramente. La luce illumina ogni uomo il cui animo è disposto a ricevere.</p>
+    <p>Cadono le immagini che abbiamo costruito di noi, le identificazioni, le paure, le aspettative mentre ci osserviamo. Ciò che era rimasto in ombra può finalmente essere guardato.</p>
+    <p>Non considero quindi il mio compito quello di dire a qualcuno chi deve diventare.</p>
+    <p>Il mio compito è accompagnarlo verso quella Luce che, prima ancora di trasformarlo, gli permette di riconoscersi.</p>
+    <p>Perché è nel riconoscersi che avviene la trasformazione.</p>
+    <p>Nel tornare a sé, o meglio in sé.</p>
+  </div>
+</section>
+
+<p class="signature-line wrap">Il velo che nasconde è lo stesso velo che rivela.</p>
+
+<footer>
+  <p class="contacts">
+    <a href="index.html">Home</a>·
+    <a href="articoli.html">Articoli</a>·
+    <a href="tariffe.html">Tariffe</a>·
+    <a href="faq.html">FAQ</a>·
+    <a href="contatti.html">Contatti</a>·
+    <a href="privacy.html">Privacy</a>·
+    <a href="termini.html">Termini e Condizioni</a>
+  </p>
+  <p class="copyright" style="font-size:12px; color:var(--parchment-dim); opacity:0.6; margin-top:18px;">© 2026 Velum Dei Arcana. Tutti i diritti riservati.</p>
+</footer>
+
+<script>
+  // evidenzia il link della sezione visibile nel jumpnav
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('#jumpnav a');
+  const setActive = () => {
+    let current = sections[0].id;
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 140) current = s.id;
+    });
+    links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current));
+  };
+  window.addEventListener('scroll', setActive);
+  setActive();
+</script>
+
+</body>
+</html>
