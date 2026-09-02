@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Quando il nostro tempio crolla. Il viaggio di Ezechiele dall'esilio alla Presenza — Velum Dei Arcana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2a1b3d; --ink-2:#341f4a; --panel:#3d2650;
+    --parchment:#f0e9de; --parchment-dim:#c9b8d6;
+    --gold:#c9a84c; --gold-bright:#e8c874;
+    --wine:#5a3f7d; --hairline:rgba(232,200,116,0.30);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  html{background:var(--ink); min-height:100%;}
+  body{background:var(--ink); color:var(--parchment); font-family:'EB Garamond', serif; font-size:18px; line-height:1.7; min-height:100vh; position:relative;}
+  ::selection{background:var(--wine); color:var(--parchment);}
+  body::before{
+    content:""; position:fixed; inset:0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(232,200,116,0.12), transparent 60%),
+      radial-gradient(ellipse 80% 50% at 50% 100%, rgba(90,63,125,0.35), transparent 60%);
+    pointer-events:none; z-index:0;
+  }
+  .wrap{max-width:680px; margin:0 auto; padding:0 28px; position:relative; z-index:1;}
+  h1,h2,h3{font-family:'Cormorant Garamond', serif; font-weight:500; letter-spacing:0.01em;}
+  .eyebrow{font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:400; letter-spacing:0.14em; text-transform:uppercase; font-size:13px; color:var(--gold-bright); opacity:0.85;}
+  a{color:var(--gold-bright);}
+
+  nav.topnav{
+    position:sticky; top:0; z-index:30;
+    background:rgba(26,16,36,0.85); backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--hairline);
+    padding:18px 28px;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+  }
+  nav.topnav .brand{font-family:'Cormorant Garamond', serif; font-size:19px; letter-spacing:0.03em; color:var(--parchment); text-decoration:none;}
+  nav.topnav .links{display:flex; gap:26px;}
+  nav.topnav .links a{font-family:'Cormorant Garamond', serif; font-size:16px; letter-spacing:0.03em; color:var(--parchment-dim); text-decoration:none; transition:color .25s ease;}
+  nav.topnav .links a:hover, nav.topnav .links a.active{color:var(--gold-bright);}
+  .nav-oracolo{
+    font-family:'Cormorant Garamond', serif; font-style:italic; font-size:15px; letter-spacing:0.03em;
+    color:#1a1024; text-decoration:none; white-space:nowrap;
+    background:linear-gradient(135deg, #e6c877, #c9a84c);
+    padding:8px 20px; border-radius:20px; transition:opacity .25s ease, transform .25s ease;
+  }
+  .nav-oracolo:hover{opacity:0.85;}
+
+  .back-link{display:block; padding:36px 0 0; font-family:'Cormorant Garamond', serif; font-style:italic; font-size:15px; color:var(--parchment-dim); text-decoration:none;}
+  .back-link:hover{color:var(--gold-bright);}
+
+  .article-head{padding:24px 0 10px;}
+  .article-head h1{font-size:clamp(32px,6vw,44px); line-height:1.15; color:var(--parchment); margin:14px 0 10px;}
+  .article-head .subtitle{font-family:'Cormorant Garamond', serif; font-style:italic; font-size:20px; color:var(--gold-bright); margin-bottom:22px;}
+  .article-meta{font-size:14px; color:var(--parchment-dim); opacity:0.75; margin-bottom:36px;}
+
+  .hero-img{width:100%; max-height:440px; object-fit:cover; border-radius:2px; margin-bottom:44px; display:block; border:1px solid var(--hairline);}
+  .mid-img{width:100%; max-height:380px; object-fit:cover; border-radius:2px; margin:44px 0; display:block; border:1px solid var(--hairline);}
+
+  article{padding-bottom:20px;}
+  article p{color:var(--parchment-dim); margin-bottom:20px; font-size:18px;}
+  article p.lede{font-style:italic; color:var(--parchment); font-size:19px;}
+  article h3{font-size:23px; color:var(--gold-bright); margin:52px 0 20px; font-weight:500;}
+  article h3:first-of-type{margin-top:44px;}
+  article p em{color:var(--parchment); font-style:italic;}
+  article blockquote{
+    border-left:2px solid var(--gold); padding:4px 0 4px 22px; margin:28px 0;
+    font-family:'Cormorant Garamond', serif; font-style:italic; font-size:20px; color:var(--gold-bright);
+  }
+
+  article sup{font-size:12px; line-height:0;}
+  article sup a{color:var(--gold-bright); text-decoration:none;}
+  article sup a:hover{text-decoration:underline;}
+
+  .footnotes{border-top:1px solid var(--hairline); padding-top:24px; margin-top:36px;}
+  .footnotes p{font-size:14px; color:var(--parchment-dim); opacity:0.85; margin-bottom:8px;}
+  .footnotes p a{color:var(--gold-bright); text-decoration:none;}
+
+  .signature-line{font-style:italic; color:var(--gold-bright); font-family:'Cormorant Garamond', serif; font-size:19px; text-align:center; padding:60px 0 90px;}
+
+  .share-nav{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+    border-top:1px solid var(--hairline); padding-top:30px; margin-top:20px;
+  }
+  .share-nav a{font-family:'Cormorant Garamond', serif; font-style:italic; font-size:15px; text-decoration:none; color:var(--gold-bright);}
+  .share-nav a:hover{opacity:0.8;}
+
+  footer{padding:40px 0 80px; text-align:center;}
+  footer .contacts{font-size:14px; color:var(--parchment-dim);}
+  footer .contacts a{margin:0 10px;}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html" class="brand">Velum Dei Arcana</a>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="chi-sono.html">Chi sono</a>
+    <a href="articoli.html" class="active">Articoli</a>
+    <a href="tariffe.html">Tariffe</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contatti.html">Contatti</a>
+  </div>
+  <a href="oracolo.html" class="nav-oracolo">✦ Oracolo</a>
+</nav>
+
+<div class="wrap">
+  <a href="articoli.html" class="back-link">← Torna agli articoli</a>
+
+  <div class="article-head">
+    <p class="eyebrow">Bibbia e trasformazione interiore</p>
+    <h1>Quando il nostro tempio crolla</h1>
+    <p class="subtitle">Il viaggio di Ezechiele dall'esilio alla Presenza</p>
+    <p class="article-meta">2 settembre 2026</p>
+  </div>
+
+  <img src="images/articoli/tempio-crolla-ezechiele.webp" alt="Rovine di un antico tempio al crepuscolo, con una luce dorata che filtra tra le colonne spezzate" class="hero-img">
+
+  <article>
+    <p class="lede">Cosa succede quando ciò che credevamo sacro, crolla?</p>
+
+    <p>Ci sono momenti nella vita di profonda crisi. Quando il nostro mondo, ciò che conosciamo, diventa un peso che ci portiamo dietro e non ne vediamo più il senso.</p>
+    <p>Le certezze che avevamo non ci sostengono più, non sono lì a darci forza, ma a sottrarcela. Le relazioni cambiano, ci sono profondi distacchi, profondi lutti. Un'identità nella quale ci siamo riconosciuti per anni, improvvisamente ci sta stretta. Ci troviamo in un territorio interiore che non riconosciamo più e, per quanto una parte di noi cerchi di tornare indietro al familiare, un'altra ci dice che non è più possibile.</p>
+    <p>È in uno spazio simile che comincia il viaggio di Ezechiele. Un antico profeta, la cui storia può essere letta anche come una grande mappa simbolica della trasformazione interiore.</p>
+    <p>Il suo viaggio comincia dall'esilio e termina con una frase semplice e profonda: <em>il Signore è là</em>. Si apre un percorso fatto di ombra e dolore, ma di un meraviglioso ritorno. Ritorno non al vecchio sé, ma alla Presenza.</p>
+
+    <h3>L'esilio: quando perdiamo la nostra casa interiore</h3>
+    <p>Ezechiele si trova in esilio a Babilonia. Gerusalemme è lontana. Il tempio è lontano. Tutto ciò che aveva definito il suo mondo appartiene ormai a un passato che non può essere recuperato. E proprio lì, lontano da ciò che considerava sacro, Ezechiele ha la sua prima grande visione: il sacro può manifestarsi anche fuori dal luogo nel quale pensavamo di poterlo trovare, fuori dalle nostre certezze.</p>
+    <p>Spesso la vita spirituale inizia quando ciò che consideravamo sacro non è più sufficiente. Quando la vecchia forma non contiene più la nostra stessa presenza, quando il tempio interiore che avevamo costruito comincia a mostrarci le sue crepe.</p>
+    <p>L'esilio, allora, non è soltanto un luogo geografico. È un luogo dell'anima. Una condizione di lontananza cosciente e consapevole. È quel periodo nel quale non ci sentiamo più a casa dentro noi stessi. Quando ci sentiamo chiamati verso qualcosa di nuovo e sconosciuto, qualcosa che ci fa paura ma che irresistibilmente ci attrae.</p>
+
+    <h3>La visione: il divino che si muove</h3>
+    <p>La prima visione di Ezechiele è tra le più enigmatiche della Bibbia: creature viventi, ruote, movimento, fuoco, luce e una figura simile a un trono. Non è necessario comprendere ogni dettaglio per coglierne il movimento: tutto è vivo, tutto si muove. La presenza divina non è statica, e soprattutto non è confinata in un luogo, a Gerusalemme.</p>
+    <p>Questo è sconvolgente per Ezechiele: Dio può essere incontrato anche in terra straniera, nel caos dell'esilio, lontano dal tempio. Nei momenti di profonda crisi, nei momenti di esilio dell'anima.</p>
+    <p>Ci sono domande che possiamo portarci in questi momenti: dove cerchiamo il sacro? Nei materiali, nei luoghi, nei rituali o nelle persone? In identità che ci siamo costruiti? E cosa accade quando quelle strutture vengono meno, quando tutto ciò che pensavamo solido, crolla?</p>
+    <p>La trasformazione comincia proprio quando scopriamo che nulla e nessuno può sostenere il nostro cammino, solo quella Presenza che tutto sembra inizialmente distruggere.</p>
+
+    <h3>Oolà e Oolibà: quando consegniamo il nostro centro</h3>
+    <p>Tra le immagini più forti di Ezechiele ci sono quelle delle due sorelle, Oolà e Oolibà, Samaria e Gerusalemme. Ezechiele le descrive attraverso la metafora della prostituzione, un linguaggio duro, persino disturbante per il lettore moderno. Ma la Bibbia è un libro sacro, non si preoccupa di disturbare i nostri schemi e le nostre rigidità. Il linguaggio di Dio non può essere neutro, perché è diretto al cuore dell'uomo, deve dissodarne la terra, estirpare radici amare.</p>
+    <p>La prostituzione, nel linguaggio profetico, è metafora dell'infedeltà: Israele ha abbandonato la relazione con Dio e ha cercato sicurezza, potere e identità in forme esterne. Sul piano simbolico diventa una domanda molto intima: a chi o a cosa stiamo consegnando il nostro centro? A chi stiamo delegando la nostra sicurezza, la nostra forza?</p>
+    <p>Possiamo "prostituirci" anche senza alcun significato sessuale. La prostituzione riguarda la nostra purezza interiore, il nostro centro. Il nostro cuore. Possiamo consegnare la nostra energia a tante cose: al bisogno di essere approvati dagli altri, al controllo, alla paura, a una relazione, a un ruolo, a un'immagine di noi stessi. Ogni volta che qualcosa diventa più importante del nostro centro interiore, perdiamo una parte della nostra libertà.</p>
+    <p>Ezechiele usa l'immagine dell'adulterio per descrivere una perdita di appartenenza. L'anima così dimentica a chi appartiene. C'è chi dimentica che il nostro cuore è la sede della Presenza ed è da lì che sgorga la Sua voce<sup><a href="#nota1">1</a></sup>.</p>
+    <p>Ma perché torni sensibile a quella Voce, occorre che il vecchio tempio crolli.</p>
+
+    <h3>Quando il tempio crolla</h3>
+    <p>È un punto drammatico del libro quando Ezechiele vede finalmente la corruzione di Gerusalemme e del suo tempio. Il luogo che avrebbe dovuto rappresentare la presenza di Dio è stato contaminato. E allora accade qualcosa di terribile: la gloria di Dio abbandona il tempio. Le vecchie strutture crollano.</p>
+    <p>Il cuore dell'uomo è costruito per essere tempio, e lo è. Ma il vecchio deve necessariamente crollare affinché la Presenza torni a dimorare.</p>
+    <p>A livello storico, Ezechiele sta interpretando la catastrofe di Gerusalemme e l'esilio babilonese. A livello simbolico, però, questa immagine parla di trasformazione interiore: ciò che ci sosteneva non ci sostiene più. Ci sono trasformazioni così radicali che necessitano di una nuova struttura per contenere il nuovo. L'otre vecchio non può contenere il vino nuovo.</p>
+    <p>Questa è una delle esperienze più difficili del cammino interiore. Vorremmo guarire senza cambiare, rinascere senza lasciare morire nulla, conservare la vecchia identità e contemporaneamente diventare qualcun altro. Ezechiele racconta invece una verità più radicale: senza vedere la miseria del vecchio non potrai desiderare ardentemente il nuovo.</p>
+
+    <h3>Le ossa secche: quando ciò che credevamo morto torna a vivere</h3>
+    <p>Poi arriva una delle visioni più conosciute di Ezechiele: la valle piena di ossa secche.</p>
+    <blockquote>"Potranno queste ossa rivivere?"</blockquote>
+    <p>La domanda sembra assurda. Può forse un uomo conoscere la risposta? Ciò che dentro di te è morto può tornare a rivivere? Ezechiele risponde: Signore, tu lo sai. È una forma di abbandono, il riconoscere che la vera trasformazione non può essere prodotta da se stessi ma dallo Spirito, attraverso la propria bocca. La Parola porta la Vita.</p>
+    <p>Le ossa si avvicinano. Appaiono i tendini, la carne, la pelle, poi il respiro. Ciò che sembrava definitivamente morto torna a vivere.</p>
+    <p>L'immagine possiede una forza che va oltre il suo contesto storico, la rinascita di Israele dopo l'esilio. Tutti dobbiamo attraversare la valle delle ossa secche prima di giungere al fiume della vita. Sono parti di noi che non sentiamo più vive e che spesso tentiamo, con le nostre sole forze, di far rivivere.</p>
+    <p>La domanda di Dio a Ezechiele diventa anche nostra: <em>questa parte di te può tornare a vivere?</em> Forse la guarigione non consiste nel trovare in noi una forza. Forse consiste nel permettere alla Vita di entrare e farci risorgere.</p>
+    <p>Ezechiele non parla di una rinascita esterna, ma di una trasformazione profonda:</p>
+    <blockquote>"Vi darò un cuore nuovo e metterò dentro di voi uno spirito nuovo."</blockquote>
+    <p>Se il cuore rimane quello di prima, la storia ricomincia da capo.</p>
+    <p>Gesù disse: farò risorgere questo tempio in tre giorni. Parlava del suo corpo, non di mura. Parlava del nostro cuore, non di edifici. Parlava di resurrezione dalla morte. La nostra.</p>
+    <p>Serve un cuore nuovo per vedere Dio. La visione non è questione di occhi ma di sensibilità del cuore. Non per mano d'uomo il tempio di Dio sorge: le ossa risorgono per il soffio dello Spirito. Un tempio fatto di carne. La vera trasformazione avviene quando cambia il centro della persona, il suo cuore. Quando il cuore risorge, il tempio viene ricostruito.</p>
+
+    <h3>Il nuovo tempio: la sede della Presenza</h3>
+    <p>Gli ultimi capitoli di Ezechiele descrivono una lunga visione del nuovo tempio. A prima vista può sembrare una parte tecnica, piena di misure, stanze e proporzioni. Ma se guardiamo l'intero arco del libro, vediamo il movimento della gloria che deve inevitabilmente trasformarci per poter dimorare.</p>
+    <p>A questa nuova dimora viene posto un nome: <em>YHWH-Shammah</em>. "Il Signore è là". Qui è dove mira il viaggio, è dove mira la crisi.</p>
+    <p>Ezechiele è una mappa dell'anima umana quando desidera che la Presenza la abiti, e il fiume della vita la inondi.</p>
+
+    <div class="footnotes">
+      <p id="nota1">1. Efesini 3:17; Romani 5:5; 1 Corinzi 3:16; Giovanni 14:23; Proverbi 4:23.</p>
+    </div>
+
+    <div class="share-nav">
+      <a href="articoli.html">← Torna agli articoli</a>
+      <a href="contatti.html">Scrivimi →</a>
+    </div>
+  </article>
+</div>
+
+<p class="signature-line wrap">Il velo che nasconde è lo stesso velo che rivela.</p>
+
+<footer>
+  <p class="contacts">
+    <a href="index.html">Home</a>·
+    <a href="chi-sono.html">Chi sono</a>·
+    <a href="articoli.html">Articoli</a>·
+    <a href="tariffe.html">Tariffe</a>·
+    <a href="faq.html">FAQ</a>·
+    <a href="contatti.html">Contatti</a>·
+    <a href="privacy.html">Privacy</a>·
+    <a href="termini.html">Termini e Condizioni</a>
+  </p>
+  <p class="copyright" style="font-size:12px; color:var(--parchment-dim); opacity:0.6; margin-top:18px;">© 2026 Velum Dei Arcana. Tutti i diritti riservati.</p>
+</footer>
+
+</body>
+</html>
